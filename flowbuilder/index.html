@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>FlowBuilder</title>
+		<link type="text/css" href="css/jquery-ui-1.8.23.custom.css" rel="stylesheet" />	
+		<link type="text/css" href="css/app.css" rel="stylesheet" />
+		
+		<script src="js/ext/jquery-1.6.js" type="text/javascript"></script>
+		<script src="js/ext/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+		
+		<script src="js/ext/raphael-min.js" type="text/javascript"></script>
+		
+		<script src="js/ext/underscore.min.js" type="text/javascript"></script>
+		<script src="js/ext/backbone.min.js" type="text/javascript"></script>
+
+		<script>
+			var DEBUG = window.console ? !0 : !1;
+			if (!DEBUG) {
+				window.console || (window.console = {});
+				var methods = ["log", "debug", "warn", "info", "error"];
+				for (var i = 0; i < methods.length; i++) window.console[methods[i]] = function() {}
+			}
+		</script>	
+		
+		<script src="js/modules/widget.js?v=201303201707"></script>
+		<script src="js/modules/property.js?v=201301281349"></script>
+		<script src="js/modules/control.js?v=201209081538" type="text/javascript"></script>
+		<script src="js/modules/controlfatory.js?v=201209081538" type="text/javascript"></script>
+		<script src="js/modules/userview.js?v=201209081538" type="text/javascript"></script>
+		<script src="js/app.js?v=201209081538" type="text/javascript"></script>
+		
+	</head>
+	<body class="grid design">
+		<div id="header" class="clearfix">
+			<div class="h-t">
+				<div class="h-l l">
+					<a href="javascript:void(0);" class="btn btn-blue btn-pageinfo">
+						<div class="l"></div>
+						<div class="l-c"><div class="h-icon h-icon-pageinfo"></div><span>模板信息</span></div>
+						<div class="r"></div>
+					</a>
+					<a href="javascript:void(0);" class="btn btn-green btn-publish">
+						<div class="l"></div>
+						<div class="l-c"><div class="h-icon h-icon-publish"></div><span>完成</span></div>
+						<div class="r"></div>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="main-content">
+			
+		</div>
+
+		<div id="control-dialog">
+			<div id="userview-control">
+				<ul>
+					<li class="menu-item ticon1 choose">选择</li>
+					<li class="menu-item ticon2 grid">栅格</li>
+					<li class="menu-split"></li>
+					<li class="menu-item ticon3 save">保存</li>
+					<li class="menu-item ticon4 publish">发布</li>
+					<li class="menu-split"></li>
+					<li class="menu-item ticon14 sequenceflow" type="sequenceflow">连接</li>
+					<li class="menu-split"></li>
+					<li class="menu-item ticon7 ui-draggable startevent" type="startevent">开始</li>
+					<li class="menu-item ticon8 ui-draggable endevent" type="endevent">结束</li>
+					<li class="menu-item ticon12 ui-draggable usertask" type="usertask">任务</li>					
+					<li class="menu-split"></li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="property-dialog">
+			<div id="userview-property"></div>
+		</div>
+
+		
+		<script id="template-ui-propertyview" type="text/template">  
+			<div class="scrollbar disable"><div class="track"><div class="thumb"><div class="top"></div><div class="bottom"></div></div></div></div>
+			<div class="viewport">
+				<div class="overview" />
+			</div>
+		</script>
+
+		<!-- widgets -->
+		<script id="template-widget-nullwidget" type="text/template">
+			<div></div>
+		</script>
+		<!-- 单行文本框 -->
+		<script id="template-widget-singletext" type="text/template">
+			<div class="fg clearfix">
+				<div class="fl"><%=_property_title %></div>
+				<div class="fe">
+					<input type="text" value="<%=text%>" />
+				</div>
+			</div>
+		</script>
+		<!-- 单选按钮 -->
+		<script id="template-widget-radiobuttons" type="text/template">
+			<div class="fg clearfix">
+				<div class="fl"><%=_property_title %></div>
+				<div class="fe">
+					<% _.each(options, function(o) { %>
+					
+						<input type="radio" id="rad-<%=_wid%>-<%=o.value%>" name="rad-<%=_wid%>" value="<%=o.value%>" <% if(o.checked){ %> checked="checked" <%};%> />
+						<label for="rad-<%=_wid%>-<%=o.value%>"><%=o.text%></label>
+					
+					<% }); %>					
+				</div>
+			</div>
+		</script>
+		
+		
+		
+		<script type="text/javascript">
+		jQuery(function($){
+			
+			window.App = new Builder();
+			window.App.bind("appInited", function(){
+			
+				//var a = Utils.getQueryParameter("operType");
+				//if(a == "" || a == "1" || a == "3"){//新增、复制
+				//	$("#header .btn-pageinfo").trigger("click")
+				//}else if(a == "2"){//修改
+					App.loadApp()					
+				//}
+								
+			});
+			window.App.render()
+			
+		});		
+		</script>
+		
+	</body>		
+</html>
